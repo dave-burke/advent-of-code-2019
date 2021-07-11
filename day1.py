@@ -13,8 +13,22 @@ input = [
 	50601, 74571, 65556, 129765, 80626, 126995, 73480, 71360, 103288, 85670,
 ]
 
+def calc_fuel(mass):
+    return math.trunc(mass / 3) - 2
+
+def calc_additional_fuel(fuel_mass):
+    additional_fuel = calc_fuel(fuel_mass)
+    if additional_fuel >= 0:
+        return calc_additional_fuel(additional_fuel) + additional_fuel
+    else:
+        return 0
+
 sum = 0
 for i in input:
-    sum += math.trunc(i / 3) - 2
+    module_fuel = calc_fuel(i)
+    additional_fuel = calc_additional_fuel(module_fuel)
+    sum = sum + module_fuel + additional_fuel
 
-print(sum)
+print(f'Fuel required is {sum}')
+
+# 4954096 is too high
