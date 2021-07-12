@@ -26,20 +26,21 @@ def multiply(mem, index):
 
 def step(mem, index):
     ''' step through the code '''
-    operation = mem[index]
-    if operation == 1:
+    opcode = mem[index]
+    if opcode == 1:
         return add(mem, index)
-    if operation == 2:
+    if opcode == 2:
         return multiply(mem, index)
-    raise Exception(f'Unknown op {operation} at {index}')
+    raise Exception(f'Unknown op {opcode} at {index}')
 
 def pretty(mem, index):
+    ''' pretty print the current state of the machine '''
     printable = copy(mem)
     printable[index] = '*' + str(printable[index]) + '*'
     print(printable)
 
 def run(mem):
-    ''' Runs the code '''
+    ''' Runs the code until it terminates with opcode '99' '''
     index = 0
     while mem[index] != 99:
         # pretty(mem, index)
